@@ -4,9 +4,9 @@ public class Planet {
 	public double xxVel;
 	public double yyVel;
 	public double mass;
-	String imgFileName;
+	public String imgFileName;
 
-	public static final double graviConstant = 6.67E-11;
+	private static final double graviConstant = 6.67E-11;
 
 	public Planet(double xP, double yP, double xV
 					,double yV, double m, String img) {
