@@ -11,14 +11,14 @@ public class ArrayDeque<T> {
         size = 0;
     }
 
-    public ArrayDeque(ArrayDeque other) {
-        items = (T[]) new Object[other.items.length];
-        for (int i = 0; i < other.size(); i++) {
-            addLast((T) other.get(i));
-        }
-        nextFirst = items.length - 1;
-        nextLast = size;
-    }
+//    public ArrayDeque(ArrayDeque other) {
+//        items = (T[]) new Object[other.items.length];
+//        for (int i = 0; i < other.size(); i++) {
+//            addLast((T) other.get(i));
+//        }
+//        nextFirst = items.length - 1;
+//        nextLast = size;
+//    }
 
     public int size() {
         return size;
@@ -84,7 +84,7 @@ public class ArrayDeque<T> {
             resize(items.length / 2);
         }
 
-        return removed;
+        return (T) removed;
     }
 
     public T removeLast() {
@@ -101,12 +101,12 @@ public class ArrayDeque<T> {
             resize(items.length / 2);
         }
 
-        return removed;
+        return (T) removed;
     }
 
     public T get(int index) {
         var realIndex = (nextFirst + 1 + index) % items.length;
-        return items[realIndex];
+        return (T) items[realIndex];
     }
 
 }
