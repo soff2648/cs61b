@@ -11,6 +11,15 @@ public class ArrayDeque<T> {
         size = 0;
     }
 
+    public ArrayDeque(ArrayDeque other) {
+        items = (T[]) new Object[other.items.length];
+        for (int i = 0; i < other.size(); i++) {
+            addLast((T) other.get(i));
+        }
+        nextFirst = items.length - 1;
+        nextLast = size;
+    }
+
     public int size() {
         return size;
     }
