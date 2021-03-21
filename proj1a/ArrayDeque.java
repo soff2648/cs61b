@@ -27,7 +27,7 @@ public class ArrayDeque<T> {
             index = (index + 1) % size;
         }
         items = resized;
-        nextFirst = resized.length-1;
+        nextFirst = resized.length - 1;
         nextLast = size;
     }
 
@@ -71,7 +71,7 @@ public class ArrayDeque<T> {
         items[indexOfFirst] = null;
         nextFirst = indexOfFirst;
 
-        if ((double) size/items.length < 0.25 && items.length > 16) {
+        if ((double) size / items.length < 0.25 && items.length > 16) {
             resize(items.length / 2);
         }
 
@@ -88,7 +88,7 @@ public class ArrayDeque<T> {
         items[indexOfLast] = null;
         nextLast = indexOfLast;
 
-        if ((double) size/items.length < 0.25 && items.length > 16) {
+        if ((double) size / items.length < 0.25 && items.length > 16) {
             resize(items.length / 2);
         }
 
