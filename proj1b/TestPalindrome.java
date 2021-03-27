@@ -19,12 +19,14 @@ public class TestPalindrome {
 
     @Test
     public void testIsPalindrome() {
+        OffByOne cc = new OffByOne();
+
         String input1 = "cat";
         boolean output1 = palindrome.isPalindrome(input1);
         assertFalse(output1);
 
-        String input2 = "noon";
-        boolean output2 = palindrome.isPalindrome(input2);
+        String input2 = "flake";
+        boolean output2 = palindrome.isPalindrome(input2, cc);
         assertTrue(output2);
 
         String input4 = "rotor";
@@ -32,7 +34,7 @@ public class TestPalindrome {
         assertTrue(output4);
 
         String input3 = "a";
-        boolean output3 = palindrome.isPalindrome(input3);
+        boolean output3 = palindrome.isPalindrome(input3, cc);
         assertTrue(output3);
 
 
