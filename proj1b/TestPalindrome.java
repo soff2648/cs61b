@@ -16,4 +16,25 @@ public class TestPalindrome {
         assertEquals("persiflage", actual);
     }
     /*Uncomment this class once you've created your Palindrome class. */
+
+    @Test
+    public void testIsPalindrome() {
+        String input1 = "cat";
+        boolean output1 = palindrome.isPalindrome(input1);
+        assertFalse(output1);
+
+        String input2 = "noon";
+        boolean output2 = palindrome.isPalindrome(input2);
+        assertTrue(output2);
+
+        String input4 = "rotor";
+        boolean output4 = palindrome.isPalindrome(input4);
+        assertTrue(output4);
+
+        String input3 = "a";
+        boolean output3 = palindrome.isPalindrome(input3);
+        assertTrue(output3);
+
+
+    }
 }
