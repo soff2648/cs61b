@@ -1,5 +1,3 @@
-import java.util.Locale;
-
 public class Palindrome {
 
     public Deque<Character> wordToDeque(String word) {
@@ -28,7 +26,7 @@ public class Palindrome {
         }
         char front = dequeWord.removeFirst();
         char end = dequeWord.removeLast();
-        if (front < 'a' || end < 'a' || front > 'z' || end > 'z') {
+        if (!Character.isLetterOrDigit(front) || !Character.isLetterOrDigit(end)) {
             return false;
         }
 
@@ -47,7 +45,7 @@ public class Palindrome {
         }
         char front = dequeWord.removeFirst();
         char end = dequeWord.removeLast();
-        if (front < 'a' || end < 'a' || front > 'z' || end > 'z') {
+        if (!Character.isLetterOrDigit(front) || !Character.isLetterOrDigit(end)) {
             return false;
         }
 
