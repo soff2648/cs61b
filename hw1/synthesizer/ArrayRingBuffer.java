@@ -73,29 +73,35 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
     public T peek() {
         if (isEmpty()) {
-            return null;
+            throw new RuntimeException("Ring buffer overflow");
         }
         return rb[first];
     }
 
+    @Override
     public Iterator<T> iterator() {
         return new ArrayRingBufferIterator();
     }
 
     private class ArrayRingBufferIterator implements Iterator<T> {
+        int count;
         int index;
 
         public ArrayRingBufferIterator() {
             index = first;
+            count = 0;
         }
 
+        @Override
         public boolean hasNext() {
-            return index < fillCount;
+            return count < fillCount;
         }
 
+        @Override
         public T next() {
             T returnItem = rb[index];
             index += 1;
+            count += 1;
             if (index == capacity) {
                 index = 0;
             }

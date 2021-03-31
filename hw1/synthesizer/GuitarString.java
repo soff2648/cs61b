@@ -14,7 +14,7 @@ public class GuitarString {
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-        int capacity = (int) Math.round(SR/frequency);
+        int capacity = (int) Math.round(SR / frequency);
         buffer = new ArrayRingBuffer(capacity);
         while (!buffer.isFull()) {
             buffer.enqueue(0.0);
