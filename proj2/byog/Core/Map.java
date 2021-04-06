@@ -24,7 +24,7 @@ public class Map {
         widthOfWorld = width;
         heightOfWorld = height;
         world = new TETile[widthOfWorld][heightOfWorld];
-        ter.initialize(width, height);
+        //ter.initialize(width, height);
         this.random = random;
         roomsNum = RandomUtils.uniform(random, 15, 20);
         rooms = new Room[roomsNum];

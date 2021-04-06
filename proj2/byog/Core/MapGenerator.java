@@ -16,7 +16,7 @@ public class MapGenerator {
         map.drawBackGround();
         map.getRooms();
         map.generateHallWay();
-        map.renderFrame();
+        //ter.renderFrame(map.world);
     }
 
     public static TETile[][] mapWorld() {
