@@ -17,7 +17,10 @@ public class Main {
             System.out.println(TETile.toString(worldState));
         } else {
             Game game = new Game();
-            game.playWithKeyboard();
+            TETile[][] worldState = game.playWithInputString(null);
+            System.out.println(TETile.toString(worldState));
+//            Game game = new Game();
+//            game.playWithKeyboard();
         }
     }
 }
