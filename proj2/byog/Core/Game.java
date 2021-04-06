@@ -37,7 +37,7 @@ public class Game {
         char[] chars = input.toCharArray();
 
         long seed = findSeed(chars);
-        System.out.println(seed);
+        //System.out.println(seed);
         Random mainRandom = new Random(seed);
         MapGenerator.generateMap(mainRandom, WIDTH, HEIGHT, ter);
 
