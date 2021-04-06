@@ -36,7 +36,7 @@ public class Game {
 
         char[] chars = input.toCharArray();
 
-        int seed = findSeed(chars);
+        long seed = findSeed(chars);
         System.out.println(seed);
         Random mainRandom = new Random(seed);
         MapGenerator.generateMap(mainRandom, WIDTH, HEIGHT, ter);
@@ -45,14 +45,14 @@ public class Game {
         return finalWorldFrame;
     }
 
-    private int findSeed(char[] chars) {
+    private long findSeed(char[] chars) {
         StringBuilder num = new StringBuilder();
         for (char c: chars) {
             if (Character.isDigit(c)) {
                 num.append(c);
             }
         }
-        return Integer.parseInt(num.toString());
+        return Long.parseLong(num.toString());
 
     }
 }
