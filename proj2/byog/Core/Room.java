@@ -2,11 +2,12 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import byog.TileEngine.Tileset;
 
-public class Room implements Comparable<Room> {
+public class Room implements Comparable<Room>, Serializable {
     int xPos;
     int yPos;
     int widthOfRoom;
@@ -72,6 +73,44 @@ public class Room implements Comparable<Room> {
     public Position randomPointInside() {
         int pointX = RandomUtils.uniform(random, xPos + 1, xPos + this.widthOfRoom - 1);
         int pointY = RandomUtils.uniform(random, yPos + 1, yPos + this.heightOfRoom - 1);
+        return new Position(pointX, pointY);
+    }
+
+    public Position randomPointOnWall() {
+        int side = RandomUtils.uniform(random, 4);
+        int pointX;
+        int pointY;
+        switch (side) {
+            case 0: {
+
+                pointX = xPos;
+                pointY = RandomUtils.uniform(random, yPos + 1, yPos + this.widthOfRoom - 1);
+                break;
+            }
+            case 1: {
+                //upper edge
+                pointX = RandomUtils.uniform(random, xPos + 1, xPos + this.widthOfRoom - 1);
+                pointY = yPos + this.heightOfRoom - 1;
+                break;
+            }
+            case 2: {
+                //right edge
+                pointX = xPos + this.widthOfRoom - 1;
+                pointY = RandomUtils.uniform(random, yPos + 1, yPos + this.widthOfRoom - 1);
+                break;
+            }
+            case 3: {
+                //bottom edge
+                pointX = RandomUtils.uniform(random, xPos + 1, xPos + this.widthOfRoom - 1);
+                pointY = yPos;
+                break;
+            }
+            default:
+                pointX = -1;
+                pointY = -1;
+                break;
+        }
+
         return new Position(pointX, pointY);
     }
 

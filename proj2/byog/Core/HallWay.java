@@ -2,9 +2,10 @@ package byog.Core;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class HallWay {
+public class HallWay implements Serializable {
     Position start;
     Position end;
     Random random;
