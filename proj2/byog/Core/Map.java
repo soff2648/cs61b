@@ -136,6 +136,10 @@ public class Map implements Serializable {
         java.util.Map<TETile, Integer> counter = new HashMap<>();
         int x = position.getxPos();
         int y = position.getyPos();
+        if (x >= widthOfWorld || x <= 0 || y <= 0 || y >= heightOfWorld) {
+            return false;
+        }
+
         if (counter.containsKey(world[x + 1][y])) {
             counter.put(world[x + 1][y], counter.get(world[x + 1][y]) + 1);
         } else {
