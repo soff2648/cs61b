@@ -393,54 +393,61 @@ public class Game implements Serializable {
         // TO DO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
-
         char[] chars = input.toLowerCase().toCharArray();
-
         int count = 0;
         if (chars[count] == 'n') {
             gameStart = true;
             count += 1;
         }
         StringBuilder seedString = new StringBuilder();
-        while (chars[count] != 's') {
+        while (count < chars.length && chars[count] != 's') {
             seedString.append(chars[count]);
             count += 1;
         }
-        seedTyped = true;
-        seed = Long.parseLong(seedString.toString());
-        mainRandom = new Random(seed);
-        map = new Map(mainRandom, WIDTH, HEIGHT);
-        player = new Player(map);
-        updatePlayer(map);
 
-        for (count += 1; count < chars.length; count++) {
+        try {
+            if (chars[count] == 's') {
+                seedTyped = true;
+            }
+        } catch (Exception e) {
+            map = new Map(WIDTH, HEIGHT);
+            return map.world;
+        }
 
-            String inputString = "" + chars[count];
-            if (WASD.contains(inputString)) {
-                if (inputString.equals("w")) {
-                    gameWinned = player.moveUp(map);
-                } else if (inputString.equals("d")) {
-                    gameWinned = player.moveRight(map);
-                } else if (inputString.equals("s")) {
-                    gameWinned = player.moveDown(map);
-                } else if (inputString.equals("a")) {
-                    gameWinned = player.moveLeft(map);
+        if (seedTyped) {
+            seed = Long.parseLong(seedString.toString());
+            mainRandom = new Random(seed);
+            map = new Map(mainRandom, WIDTH, HEIGHT);
+            player = new Player(map);
+            updatePlayer(map);
+
+            for (count += 1; count < chars.length; count++) {
+
+                String inputString = "" + chars[count];
+                if (WASD.contains(inputString)) {
+                    if (inputString.equals("w")) {
+                        gameWinned = player.moveUp(map);
+                    } else if (inputString.equals("d")) {
+                        gameWinned = player.moveRight(map);
+                    } else if (inputString.equals("s")) {
+                        gameWinned = player.moveDown(map);
+                    } else if (inputString.equals("a")) {
+                        gameWinned = player.moveLeft(map);
+                    }
+                }
+                updatePlayer(map);
+                if (inputString.equals(":") && chars[count + 1] == 'q') {
+                    count += 1;
                 }
             }
-            updatePlayer(map);
-            if (inputString.equals(":") && chars[count + 1] == 'q') {
-                count += 1;
-            }
+
+            TETile[][] finalWorldFrame = map.world;
+            return finalWorldFrame;
         }
-//                    gameOver = true;
-//                    map.display(WIDTH/2, HEIGHT/2, "you quit the game");
-//                    StdDraw.pause(1000);
-//                    StdDraw.clear(Color.BLACK);
-//                    StdDraw.show();
 
-
-        TETile[][] finalWorldFrame = map.world;
-        return finalWorldFrame;
+        return null;
     }
 }
+
+
 

@@ -47,6 +47,13 @@ public class Map implements Serializable {
         generateInitalMap();
     }
 
+    Map(int width, int height) {
+        widthOfWorld = width;
+        heightOfWorld = height;
+        world = new TETile[widthOfWorld][heightOfWorld];
+        drawBackGround();
+    }
+
     void drawBackGround() {
 
         for (int i = 0; i < widthOfWorld; i++) {
@@ -140,25 +147,29 @@ public class Map implements Serializable {
             return false;
         }
 
-        if (counter.containsKey(world[x + 1][y])) {
-            counter.put(world[x + 1][y], counter.get(world[x + 1][y]) + 1);
-        } else {
-            counter.put(world[x + 1][y], 1);
-        }
-        if (counter.containsKey(world[x - 1][y])) {
-            counter.put(world[x - 1][y], counter.get(world[x - 1][y]) + 1);
-        } else {
-            counter.put(world[x - 1][y], 1);
-        }
-        if (counter.containsKey(world[x][y + 1])) {
-            counter.put(world[x][y + 1], counter.get(world[x][y + 1]) + 1);
-        } else {
-            counter.put(world[x][y + 1], 1);
-        }
-        if (counter.containsKey(world[x][y - 1])) {
-            counter.put(world[x][y - 1], counter.get(world[x][y - 1]) + 1);
-        } else {
-            counter.put(world[x][y - 1], 1);
+        try {
+            if (counter.containsKey(world[x + 1][y])) {
+                counter.put(world[x + 1][y], counter.get(world[x + 1][y]) + 1);
+            } else {
+                counter.put(world[x + 1][y], 1);
+            }
+            if (counter.containsKey(world[x - 1][y])) {
+                counter.put(world[x - 1][y], counter.get(world[x - 1][y]) + 1);
+            } else {
+                counter.put(world[x - 1][y], 1);
+            }
+            if (counter.containsKey(world[x][y + 1])) {
+                counter.put(world[x][y + 1], counter.get(world[x][y + 1]) + 1);
+            } else {
+                counter.put(world[x][y + 1], 1);
+            }
+            if (counter.containsKey(world[x][y - 1])) {
+                counter.put(world[x][y - 1], counter.get(world[x][y - 1]) + 1);
+            } else {
+                counter.put(world[x][y - 1], 1);
+            }
+        } catch (Exception e) {
+            return false;
         }
         if (counter.get(Tileset.NOTHING) == null
                 || counter.get(Tileset.FLOOR) == null
