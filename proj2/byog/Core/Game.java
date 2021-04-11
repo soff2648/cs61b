@@ -401,8 +401,10 @@ public class Game implements Serializable {
         }
         StringBuilder seedString = new StringBuilder();
         while (count < chars.length && chars[count] != 's') {
-            seedString.append(chars[count]);
-            count += 1;
+            if (NUMBERS.contains(chars[count] + "")){
+                seedString.append(chars[count]);
+                count += 1;
+            }
         }
 
         try {

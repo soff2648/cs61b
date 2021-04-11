@@ -143,7 +143,7 @@ public class Map implements Serializable {
         java.util.Map<TETile, Integer> counter = new HashMap<>();
         int x = position.getxPos();
         int y = position.getyPos();
-        if (x >= widthOfWorld || x <= 0 || y <= 0 || y >= heightOfWorld) {
+        if (x >= widthOfWorld - 1 || x <= 1 || y <= 1 || y >= heightOfWorld - 1) {
             return false;
         }
 
