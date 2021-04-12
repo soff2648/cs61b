@@ -403,13 +403,16 @@ public class Game implements Serializable {
         while (count < chars.length && chars[count] != 's') {
             if (NUMBERS.contains(chars[count] + "")){
                 seedString.append(chars[count]);
-                count += 1;
             }
+            count += 1;
         }
 
         try {
-            if (chars[count] == 's') {
+            if (chars[count] == 's' && seedString.length() > 0) {
                 seedTyped = true;
+            } else {
+                map = new Map(WIDTH, HEIGHT);
+                return map.world;
             }
         } catch (Exception e) {
             map = new Map(WIDTH, HEIGHT);
