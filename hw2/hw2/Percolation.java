@@ -9,7 +9,7 @@ public class Percolation {
     private boolean[] isOpened;
     private int N;
 
-    Percolation(int number) {
+    public Percolation(int number) {
         if (number <= 0) {
             throw new IllegalArgumentException();
         }
@@ -43,7 +43,7 @@ public class Percolation {
 
     }
 
-    public boolean isOpen(int i, int j){
+    public boolean isOpen(int i, int j) {
         if (i >= N || j >= N || i < 0 || j < 0) {
             throw new IndexOutOfBoundsException();
         }
@@ -107,6 +107,10 @@ public class Percolation {
 
     private boolean checkBottom() {
         return djsPercolation.connected(0, N * N + 1);
+    }
+
+    public static void main(String[] args) {
+
     }
 
 
