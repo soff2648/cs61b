@@ -1,7 +1,6 @@
 package hw4.puzzle;
 
 import edu.princeton.cs.algs4.MinPQ;
-import edu.princeton.cs.algs4.StdOut;
 
 import java.util.*;
 
@@ -10,7 +9,7 @@ public class Solver {
 
     private class SearchNode {
         public WorldState currentState;
-        public int moveNumber;
+        private int moveNumber;
         public SearchNode previousNode;
 
         public SearchNode(WorldState state, int moves, SearchNode previous) {
@@ -54,7 +53,7 @@ public class Solver {
     public Solver(WorldState initial) {
         initNode = new SearchNode(initial, 0, null);
         pq.insert(initNode);
-        distances= new HashMap<>();
+        distances = new HashMap<>();
     }
 
     public int moves() {

@@ -48,7 +48,7 @@ public class Board implements WorldState {
     }
 
     private boolean indexValid(int i) {
-        return i>= 0 && i < dimension;
+        return i >= 0 && i < dimension;
     }
 
     public int size() {
@@ -97,12 +97,11 @@ public class Board implements WorldState {
         return manhatten();
     }
 
-    private int hamming() {
-
+    public int hamming() {
         return hammingScore;
     }
 
-    private int manhatten() {
+    public int manhatten() {
         int score = 0;
         for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
