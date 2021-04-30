@@ -54,9 +54,6 @@ public class Solver {
         initNode = new SearchNode(initial, 0, null);
         pq.insert(initNode);
         distances = new HashMap<>();
-    }
-
-    public int moves() {
         SearchNode current = pq.delMin();
         while (!current.currentState.isGoal()) {
             for (var state : current.currentState.neighbors()) {
@@ -71,8 +68,12 @@ public class Solver {
             current = pq.delMin();
         }
         endNode = current;
+    }
+
+    public int moves() {
+
         //System.out.println(counter2);
-        return current.moveNumber;
+        return endNode.moveNumber;
     }
 
     public Iterable<WorldState> solution() {

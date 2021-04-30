@@ -11,6 +11,7 @@ public class Board implements WorldState {
     private int holeIndexJ;
     private int[][] goal;
     private int hammingScore;
+    private int manhattanScore;
 
 
     public Board(int[][] tiles) {
@@ -29,6 +30,14 @@ public class Board implements WorldState {
                 if (state[i][j] != goal[i][j]) {
                     hammingScore += 1;
                 }
+                if (state[i][j] == 0) {
+                    manhattanScore += Math.abs(dimension - 1 - i) + Math.abs((dimension - 1 - j));
+                } else {
+                    int expectedI = (state[i][j] - 1) / dimension;
+                    int expectedJ = (state[i][j] - 1) % dimension;
+                    manhattanScore += Math.abs(expectedI - i) + Math.abs((expectedJ - j));
+                }
+
                 if (state[i][j] == 0) {
                     holeIndexI = i;
                     holeIndexJ = j;
@@ -94,27 +103,15 @@ public class Board implements WorldState {
 
     @Override
     public int estimatedDistanceToGoal() {
-        return manhatten();
+        return manhattan();
     }
 
     public int hamming() {
         return hammingScore;
     }
 
-    public int manhatten() {
-        int score = 0;
-        for (int i = 0; i < dimension; i++) {
-            for (int j = 0; j < dimension; j++) {
-                if (state[i][j] == 0) {
-                    score += Math.abs(dimension - 1 - i) + Math.abs((dimension - 1 - j));
-                } else {
-                    int expectedI = (state[i][j] - 1) / dimension;
-                    int expectedJ = (state[i][j] - 1) % dimension;
-                    score += Math.abs(expectedI - i) + Math.abs((expectedJ - j));
-                }
-            }
-        }
-        return score;
+    public int manhattan() {
+        return manhattanScore;
     }
     @Override
     public boolean equals(Object y) {
