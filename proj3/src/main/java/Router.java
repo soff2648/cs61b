@@ -1,4 +1,12 @@
+import java.util.Set;
+import java.util.Map;
+import java.util.Stack;
+import java.util.Queue;
 import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.PriorityQueue;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +20,14 @@ import java.util.regex.Pattern;
  * down to the priority you use to order your vertices.
  */
 public class Router {
+
+    private static long startNode;
+    private static long destNode;
+    private static Map<Long, Double> distTo;
+    private static GraphDB graph;
+    private static Queue<Long> fringe;
+    private static Map<Long, Long> parentTo;
+    private static Set<Long> marked;
     /**
      * Return a List of longs representing the shortest path from the node
      * closest to a start location and the node closest to the destination
@@ -25,8 +41,78 @@ public class Router {
      */
     public static List<Long> shortestPath(GraphDB g, double stlon, double stlat,
                                           double destlon, double destlat) {
-        return null; // FIXME
+        graph = g;
+        startNode = graph.closest(stlon, stlat);
+        destNode = graph.closest(destlon, destlat);
+        distTo = new HashMap<>();
+        distTo.put(startNode, 0.0);
+        parentTo = new HashMap<>();
+        marked = new HashSet<>();
+        fringe = new PriorityQueue<>((o1, o2) -> {
+            double fringeDistance1 = distTo.get(o1) + h(o1);
+            double fringeDistance2 = distTo.get(o2) + h(o2);
+            if (fringeDistance1 < fringeDistance2) {
+                return -1;
+            } else if (fringeDistance1 == fringeDistance2) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+        fringe.add(startNode);
+
+        long currentNode = startNode;
+        while (currentNode != destNode && !fringe.isEmpty()) {
+            currentNode = fringe.remove();
+            marked.add(currentNode);
+            for (long w : graph.adjacent(currentNode)) {
+                if (marked.contains(w)) {
+                    continue;
+                }
+                relax(currentNode, w);
+            }
+        }
+        Long tracePath = destNode;
+        Stack<Long> reversedPath = new Stack<>();
+        while (tracePath != startNode) {
+            reversedPath.push(tracePath);
+            tracePath = parentTo.get(tracePath);
+        }
+        reversedPath.push(startNode);
+
+        List<Long> path = new ArrayList<>();
+        while (!reversedPath.isEmpty()) {
+            path.add(reversedPath.pop());
+        }
+
+        return path;
     }
+
+    private static double h(Long v) {
+        return graph.distance(v, destNode);
+    }
+
+    private static void relax(Long v, Long w) {
+        if (!distTo.containsKey(w)) {
+            distTo.put(w, distTo.get(v) + graph.distance(v, w));
+            fringe.add(w);
+            if (!parentTo.containsKey(w)) {
+                parentTo.put(w, v);
+            } else {
+                parentTo.replace(w, v);
+            }
+
+        } else if (distTo.get(w) > distTo.get(v) + graph.distance(v, w)) {
+            distTo.replace(w, distTo.get(v) + graph.distance(v, w));
+            fringe.add(w);
+            if (!parentTo.containsKey(w)) {
+                parentTo.put(w, v);
+            } else {
+                parentTo.replace(w, v);
+            }
+        }
+    }
+
 
     /**
      * Create the list of directions corresponding to a route on the graph.

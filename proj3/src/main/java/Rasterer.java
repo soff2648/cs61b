@@ -94,15 +94,15 @@ public class Rasterer {
         double rasterLRLAT = getRasterLRLAT(yL, depth);
 
         Map<String, Object> results = new HashMap<>();
-//        System.out.println(depth);
-//        System.out.println(xL);
-//        System.out.println(xR);
-//        System.out.println(yU);
-//        System.out.println(yL);
-//        System.out.println(rasterULLON);
-//        System.out.println(rasterLRLON);
-//        System.out.println(rasterLRLAT);
-//        System.out.println(rasterULLAT);
+        System.out.println(depth);
+        System.out.println(xL);
+        System.out.println(xR);
+        System.out.println(yU);
+        System.out.println(yL);
+        System.out.println(rasterULLON);
+        System.out.println(rasterLRLON);
+        System.out.println(rasterLRLAT);
+        System.out.println(rasterULLAT);
         results.put("depth", depth);
         results.put("render_grid", renderGrid);
         results.put("query_success", checkSuccessQuery(params));
@@ -133,24 +133,24 @@ public class Rasterer {
     private boolean checkSuccessQuery(Map<String, Double> params) {
         double paramsULLON = params.get("ullon");
         if (paramsULLON < MapServer.ROOT_ULLON) {
-            //System.out.println("ullon");
+            System.out.println("ullon");
             return false;
         }
         double paramsLRLON = params.get("lrlon");
         if (paramsLRLON > MapServer.ROOT_LRLON) {
-            //System.out.println("lrlon");
+            System.out.println("lrlon");
             return false;
         }
 
         double paramsULLAT = params.get("ullat");
         if (paramsULLAT > MapServer.ROOT_ULLAT) {
-            //System.out.println("ullat");
+            System.out.println("ullat");
             return false;
         }
 
         double paramsLRLAT = params.get("lrlat");
         if (paramsLRLAT < MapServer.ROOT_LRLAT) {
-            //System.out.println("lrlat");
+            System.out.println("lrlat");
             return false;
         }
 
