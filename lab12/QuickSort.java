@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.Queue;
 
+import java.util.Iterator;
+
 public class QuickSort {
     /**
      * Returns a new queue that contains the given queues catenated together.
@@ -47,8 +49,8 @@ public class QuickSort {
     private static <Item extends Comparable> void partition(
             Queue<Item> unsorted, Item pivot,
             Queue<Item> less, Queue<Item> equal, Queue<Item> greater) {
-        while (!unsorted.isEmpty()) {
-            Item item = unsorted.dequeue();
+        for (Iterator<Item> it = unsorted.iterator(); it.hasNext();) {
+            Item item = it.next();
             if (item.compareTo(pivot) < 0) {
                 less.enqueue(item);
             } else if (item.compareTo(pivot) == 0) {
@@ -85,24 +87,21 @@ public class QuickSort {
         Queue<Item> temp = catenate(less, equals);
         items = catenate(temp, greater);
 
-
         return items;
     }
 
     public static void main(String[] args) {
         Queue<String> students = new Queue<String>();
-        students.enqueue("Chloe");
-        students.enqueue("Chloe");
-        students.enqueue("Chloe");
-        students.enqueue("Chloe");
+        students.enqueue("Harry");
         students.enqueue("Chloe");
 
-
-//        students.enqueue("Alice");
-//        students.enqueue("Vanessa");
-//        students.enqueue("Zoe");
-//        students.enqueue("Ethan");
+        students.enqueue("Alice");
+        students.enqueue("Vanessa");
+        students.enqueue("Zoe");
+        students.enqueue("Ethan");
         quickSort(students);
+        System.out.println(students);
+        System.out.println(students.size());
 
 
     }
