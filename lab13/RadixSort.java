@@ -23,6 +23,9 @@ public class RadixSort {
         int maxLength = 0;
         String[] items = new String[asciis.length];
         for (int i = 0; i < asciis.length; i++) {
+            if (asciis[i] == null) {
+                continue;
+            }
             maxLength = Math.max(asciis[i].length(), maxLength);
             items[i] = asciis[i];
         }
@@ -56,6 +59,10 @@ public class RadixSort {
         int nullCode = 0;
         int[] counter = new int[ASCIICODE];
         for (int i = 0; i < asciis.length; i++) {
+            if (asciis[i] == null) {
+                continue;
+            }
+
             if (index >= asciis[i].length()) {
                 counter[nullCode] += 1;
             } else {
@@ -73,6 +80,10 @@ public class RadixSort {
 
         String[] sorted = new String[asciis.length];
         for (int i = 0; i < asciis.length; i++) {
+            if (asciis[i] == null) {
+                continue;
+            }
+
             if (index >= asciis[i].length()) {
                 int place = started[nullCode];
                 sorted[place] = asciis[i];
@@ -109,16 +120,17 @@ public class RadixSort {
 
     public static void main(String[] args) {
         String[] strings = new String[10];
-        strings[0] = "Vanessa";
-        strings[1] = "Ethan";
-        strings[2] = "Adam";
-        strings[3] = "Martin";
-        strings[4] = "Vinson";
-        strings[5] = "Alexander";
-        strings[6] = "Smith";
-        strings[7] = "Edwardo";
-        strings[8] = "Schumacher";
-        strings[9] = "Bob";
+        strings[0] = " ";
+//        strings[0] = "Vanessa";
+//        strings[1] = "Ethan";
+//        strings[2] = "Adam";
+//        strings[3] = "Martin";
+//        strings[4] = "Vinson";
+//        strings[5] = "Alexander";
+//        strings[6] = "Smith";
+//        strings[7] = "Edwardo";
+//        strings[8] = "Schumacher";
+//        strings[9] = "Bob";
         String[] sorted = RadixSort.sort(strings);
         System.out.println(Arrays.toString(sorted));
     }
