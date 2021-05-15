@@ -67,6 +67,40 @@ public class CountingSort {
      */
     public static int[] betterCountingSort(int[] arr) {
         // TODO make counting sort work with arrays containing negative numbers.
-        return null;
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+
+        for (int i : arr) {
+            max = max < i ? i : max;
+            min = min > i ? i : min;
+        }
+
+        int alphabet = max - min + 1;
+
+        int[] counter = new int[alphabet];
+        for (int i : arr) {
+            counter[swiftIntegerByMin(min, i)] += 1;
+        }
+
+        int pos = 0;
+        int[] starts = new int[alphabet];
+        for (int i = 0; i < starts.length; i++) {
+            starts[i] = pos;
+            pos += counter[i];
+        }
+
+        int[] sorted = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            int item = arr[i];
+            int position = starts[swiftIntegerByMin(min, item)];
+            sorted[position] = item;
+            starts[swiftIntegerByMin(min, item)] += 1;
+        }
+
+        return sorted;
+    }
+
+    private static int swiftIntegerByMin(int min, int i) {
+        return i - min;
     }
 }
