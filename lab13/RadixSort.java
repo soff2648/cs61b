@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Map;
 
 /**
  * Class for doing Radix sort
@@ -25,17 +24,18 @@ public class RadixSort {
         String[] items = new String[asciis.length];
         for (int i = 0; i < asciis.length; i++) {
             maxLength = Math.max(asciis[i].length(), maxLength);
+            items[i] = asciis[i];
         }
 
-        for (int i = 0; i < asciis.length; i++) {
-            items[i] = fillStringToMaxLength(maxLength, asciis[i]);
-        }
+//        for (int i = 0; i < asciis.length; i++) {
+//            items[i] = fillStringToMaxLength(maxLength, asciis[i]);
+//        }
 
         for (int i = maxLength - 1; i >= 0; i--) {
             items = sortHelperLSD(items, i);
         }
 
-        cleanStrings(items);
+        //cleanStrings(items);
         return items;
     }
 
@@ -53,10 +53,15 @@ public class RadixSort {
      */
     private static String[] sortHelperLSD(String[] asciis, int index) {
         // Optional LSD helper method for required LSD radix sort
+        int nullCode = 0;
         int[] counter = new int[ASCIICODE];
         for (int i = 0; i < asciis.length; i++) {
-            int characterNum = (int) asciis[i].toCharArray()[index];
-            counter[characterNum] += 1;
+            if (index >= asciis[i].length()) {
+                counter[nullCode] += 1;
+            } else {
+                int characterNum = (int) asciis[i].toCharArray()[index];
+                counter[characterNum] += 1;
+            }
         }
 
         int[] started = new int[ASCIICODE];
@@ -68,22 +73,23 @@ public class RadixSort {
 
         String[] sorted = new String[asciis.length];
         for (int i = 0; i < asciis.length; i++) {
-            int characterNum = (int) asciis[i].toCharArray()[index];
-            int place = started[characterNum];
-            sorted[place] = asciis[i];
-            started[characterNum] += 1;
+            if (index >= asciis[i].length()) {
+                int place = started[nullCode];
+                sorted[place] = asciis[i];
+                started[nullCode] += 1;
+            } else {
+                int characterNum = (int) asciis[i].toCharArray()[index];
+                int place = started[characterNum];
+                sorted[place] = asciis[i];
+                started[characterNum] += 1;
+            }
+
         }
 
 
         return sorted;
     }
 
-    private static String fillStringToMaxLength(int max, String item) {
-         while(item.length() < max) {
-             item += " ";
-         }
-        return item;
-    }
 
     /**
      * MSD radix sort helper function that recursively calls itself to achieve the sorted array.
