@@ -1,6 +1,6 @@
 import edu.princeton.cs.algs4.Picture;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class SeamCarver {
 
@@ -82,7 +82,7 @@ public class SeamCarver {
 
 
     public Picture picture() {
-        return p;
+        return new Picture(p);
     }
 
     public double energy(int w, int h) {
@@ -136,7 +136,7 @@ public class SeamCarver {
 
         for (int h = 1; h < height; h++) {
             for (int w = 0; w < width; w++) {
-                int minW = findMinVertical(w, h - 1, matrix);
+                int minW = findMinVertical(w, h - 1, M);
                 M[h][w] = matrix[h][w] + M[h - 1][minW];
             }
         }
@@ -155,7 +155,7 @@ public class SeamCarver {
         }
 
         for (int h = height - 2; h >= 0; h--) {
-            result[h] = findMinVertical(result[h+1], h, M);
+            result[h] = findMinVertical(result[h + 1], h, M);
         }
 
         return result;
@@ -200,7 +200,7 @@ public class SeamCarver {
     private void checkSeam(int[] seam) {
 
         for (int i = 0; i < seam.length - 1; i++) {
-            if (seam[i] - seam[i + 1] > 1 || seam[i] - seam[i + 1] < - 1) {
+            if (seam[i] - seam[i + 1] > 1 || seam[i] - seam[i + 1] < -1) {
                 throw new IllegalArgumentException();
             }
         }
